@@ -198,6 +198,9 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="addNewPolicy.aspx" />
+    <Content Include="addPropertyPolicy.aspx" />
+    <Content Include="addVehiclePolicy.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
@@ -212,6 +215,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="img\imot.jpg" />
+    <Content Include="img\vozilo.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -366,6 +371,27 @@
     </Compile>
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addNewPolicy.aspx.cs">
+      <DependentUpon>addNewPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addNewPolicy.aspx.designer.cs">
+      <DependentUpon>addNewPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addPropertyPolicy.aspx.cs">
+      <DependentUpon>addPropertyPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addPropertyPolicy.aspx.designer.cs">
+      <DependentUpon>addPropertyPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addVehiclePolicy.aspx.cs">
+      <DependentUpon>addVehiclePolicy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addVehiclePolicy.aspx.designer.cs">
+      <DependentUpon>addVehiclePolicy.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>

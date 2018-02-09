@@ -2,40 +2,57 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <style>
+        .osig:hover{
+            background-color:#eeeeee;
+        }
+
+        ul{
+            list-style:none
+        }
+    </style>
+
+
     <div class="jumbotron">
         <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        <p class="lead">Купете осигурување онлајн - Најбрзо и најсигурно до вашето осигурување</p>
+        <p><a href="About.aspx" class="btn btn-success btn-large">Повеќе за нас &raquo;</a></p>
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
+        <div class="col-md-6 osig" style="text-align:center">
+
+            <img style="text-align:center; width:75%; height:200px; padding-top:10px;" src="img/imot.jpg" /> 
+            <h3>Осигурување на вашиот имот</h3>
+            <p>Осигурајте го вашиот имот според податоците за:</p>
+            <ul>
+                    <li>Видот на имот</li>
+                    <li>Сопственик на имотот</li>
+                    <li>Површина на имотот</li>
+                    <li>Локација на имотот</li>
+                    <li>Проценета вредност на имотот</li>
+            </ul>
+            <br />
+            <p><a href="addPropertyPolicy.aspx" class="btn btn-default btn-large">Купи полиса &raquo;</a></p>
+
         </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
+
+        <div class="col-md-6 osig" style="text-align:center">
+
+            <img style="text-align:center; width:75%; height:200px; padding-top:10px;" src="img/vozilo.jpg" /> 
+            <h3>Осигурување на вашeто возило</h3>
+            <p>Осигурајте го вашето возило според податоците за: </p>
+            <ul>
+                    <li>Сопственик на возилото</li>
+                    <li>Регистарска таблица на возилото</li>
+                    <li>Дополнително:</li>
+                    <li>Година на производство на возилото</li>
+                    <li>Модел на возилото</li>
+                    
+            </ul>
+            <br />
+            <p><a href="addVehiclePolicy.aspx" class="btn btn-default btn-large">Купи полиса &raquo;</a></p>
+
         </div>
     </div>
 
