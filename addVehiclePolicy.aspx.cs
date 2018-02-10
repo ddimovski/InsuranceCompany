@@ -13,6 +13,7 @@ namespace InsuranceCompanyWebApp
 
     public partial class addVehiclePolicy : System.Web.UI.Page
     {
+        String br_polisa;
         String UserID = "";
         String ime;
         String prezime;
@@ -128,7 +129,7 @@ namespace InsuranceCompanyWebApp
             cmd2.CommandText = "INSERT osiguruvanje_vozilo (br_polisa, seriski_br) VALUES (@br_polisa, @seriski_br)";
             cmd2.Parameters.AddWithValue("@seriski_br", SerialN.Text);
             cmd2.Connection = sqlConnection;
-            String br_polisa = "";
+            br_polisa = "";
             
             sqlConnection.Open();
 
@@ -151,7 +152,17 @@ namespace InsuranceCompanyWebApp
 
             sqlConnection.Close();
 
-            result.Text = "Успешно додадена полиса";
+            policyAdded();
+           
+
+        }
+
+        private void policyAdded()
+        {
+
+            price.Text = 
+
+           // result.Text = "Успешно додадена полиса";
             SerialN.Text = "";
             Registration.Text = "";
             proizvoditel.Text = "";
@@ -159,13 +170,21 @@ namespace InsuranceCompanyWebApp
             DropDownListYear.SelectedIndex = 0;
             DropDownList1.SelectedIndex = 0;
 
+            typePolicy.Visible = false;
+            complete.Visible = true;
+            showMessage.Text = "Успешно додадена полиса";
+            showMessage.Style.Add("font-size", "20pt");
+            showMessage.Style.Add("font-weight", "bold");
         }
 
-     
-    protected void Property_Click(object sender, EventArgs e)
+        protected void Property_Click(object sender, EventArgs e)
         {
             Response.Redirect("/addPropertyPolicy.aspx");
         }
 
+        protected void pay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

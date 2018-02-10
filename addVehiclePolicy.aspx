@@ -7,6 +7,8 @@
             color: #5cb85c;
             font-weight:bold;
         }
+
+        
     </style>
 
     
@@ -53,8 +55,8 @@
             </section>
         </div>
 
-        <div class="col-md-6">
-            <section id="typePolicy">
+        <div class="col-md-6" >
+            <section id="typePolicy" runat="server" >
                 <div class="form-horizontal">
                     <h4>Вид на осигурување</h4>
                     <hr />
@@ -179,8 +181,29 @@
                     <asp:Label ID="result" runat="server" Text=""></asp:Label>
                 </div>   
             </section>
+
+            <section id="complete" runat="server" visible="false">
+                
+                <div class="row" style="text-align:center">
+                    <div class="col-md-12">
+                         <asp:Label ID="showMessage" runat="server" Text=""></asp:Label>
+                    </div>
+                </div>
+                <div class="row"><br /></div>
+                <div class="row">
+                    <div class="col-md-12">
+                         <asp:Label ID="price" runat="server" Text=""></asp:Label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <asp:Button ID="pay" runat="server" Text="Продолжи кон плаќање" CssClass="btn btn-default btn-block" OnClick="pay_Click" />
+                    </div>
+                </div>
+            </section>
+
         </div>
-        
-    </div>
+        <br />
+            </div>
 
 </asp:Content>

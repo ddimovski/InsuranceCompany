@@ -79,6 +79,28 @@ namespace InsuranceCompanyWebApp
 
         }
 
+        private void policyAdded()
+        {
+            // result.Text = "Успешно додадена полиса";
+            result.Text = "Успешно додадена полиса";
+            City.Text = "";
+            Street.Text = "";
+            Number.Text = "";
+            Code.Text = "";
+            Area.Text = "";
+            Value.Text = "";
+            brSpratovi.Text = "";
+            vlez.Text = "";
+            stan.Text = "";
+            sprat.Text = "";
+
+
+            typePolicy.Visible = false;
+            complete.Visible = true;
+            showMessage.Text = "Успешно додадена полиса";
+            showMessage.Style.Add("font-size", "20pt");
+            showMessage.Style.Add("font-weight", "bold");
+        }
 
         protected void RadioButtonListType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -200,20 +222,15 @@ namespace InsuranceCompanyWebApp
                 insertOsiguruvanje.Parameters.AddWithValue("@imot_id", imot_id);
                 insertOsiguruvanje.ExecuteNonQuery();
 
-                result.Text = "Успешно додадена полиса";
-                City.Text = "";
-                Street.Text = "";
-                Number.Text = "";
-                Code.Text = "";
-                Area.Text = "";
-                Value.Text = "";
-                brSpratovi.Text = "";
-                vlez.Text = "";
-                stan.Text = "";
-                sprat.Text = "";
-
+                
             }
             catch (Exception e) { result.Text = e.ToString(); } finally { sqlConnection.Close(); }
+
+            policyAdded();
+        }
+
+        protected void pay_Click(object sender, EventArgs e)
+        {
 
         }
     }
