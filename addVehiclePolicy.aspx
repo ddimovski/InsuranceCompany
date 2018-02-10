@@ -8,6 +8,15 @@
             font-weight:bold;
         }
     </style>
+
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            ValidatorEnable(document.getElementById("MainContent_RequiredFieldValidator2"), true);
+            ValidatorEnable(document.getElementById("MainContent_RequiredFieldValidator1"), true);
+            ValidatorEnable(document.getElementById("MainContent_RegularExpressionValidator2"), true);
+        });</script>
     
     <h2><%: Title %></h2>
     <div class="row">
@@ -65,17 +74,7 @@
                 <div id="vehiclePolicy">
                     
 
-                    <div class="form-group">
-                        <asp:Label ID="LabelSerialN" runat="server" AssociatedControlID="SerialN" CssClass="col-md-3 control-label">Сериски број</asp:Label>
-                        <div class="col-md-9">
-                            <asp:TextBox runat="server" ID="SerialN" CssClass="form-control" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                                ControlToValidate="SerialN" ErrorMessage="Полето за сериски број на возилото е задолжително." ForeColor="Red" Display="None"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ForeColor="Red" ErrorMessage="Серискиот број треба да содржи само броеви" ControlToValidate="SerialN" ValidationExpression="^[0-9]*$" Display="None"></asp:RegularExpressionValidator>
-                            <asp:ValidationSummary ID="ValidationSummary1" ForeColor="Red" runat="server" />
-                       </div>
-                    </div>
-
+                   
                     <div class="form-group">
                         <asp:Label ID="LabelR" runat="server" AssociatedControlID="Registration" CssClass="col-md-3 control-label">Регистрација</asp:Label>
                         <div class="col-md-9">
@@ -84,6 +83,16 @@
                                 ControlToValidate="Registration" ErrorMessage="Полето за регистрација на возилото е задолжително." ForeColor="Red"></asp:RequiredFieldValidator>
                            
                         </div>
+                    </div>
+
+                     <div class="form-group">
+                        <asp:Label ID="LabelSerialN" runat="server" AssociatedControlID="SerialN" CssClass="col-md-3 control-label">Сериски број</asp:Label>
+                        <div class="col-md-9">
+                            <asp:TextBox runat="server" ID="SerialN" CssClass="form-control" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                ControlToValidate="SerialN" ErrorMessage="Полето за сериски број на возилото е задолжително." ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ForeColor="Red" ErrorMessage="Серискиот број треба да содржи само броеви" ControlToValidate="SerialN" ValidationExpression="^[0-9]*$" Display="Dynamic"></asp:RegularExpressionValidator>
+                              </div>
                     </div>
 
                     
