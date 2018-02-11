@@ -36,40 +36,40 @@ namespace InsuranceCompanyWebApp.Account
                 // This doen't count login failures towards account lockout
                 // To enable password failures to trigger lockout, change to shouldLockout: true
                 var result = signinManager.PasswordSignIn(Email.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
-                String a="";
+               // String a="";
                 switch (result)
                 {
                     
                     case SignInStatus.Success:
 
-                        SqlConnection connection = new SqlConnection();
-                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                        string sqlString = "SELECT admin FROM AspNetUsers WHERE Email = @email";
-                        SqlCommand command = new SqlCommand(sqlString, connection);
-                        command.Parameters.AddWithValue("@email", Email.Text);
+                        //SqlConnection connection = new SqlConnection();
+                        //connection.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                        //string sqlString = "SELECT admin FROM AspNetUsers WHERE Email = @email";
+                        //SqlCommand command = new SqlCommand(sqlString, connection);
+                        //command.Parameters.AddWithValue("@email", Email.Text);
 
                        // SqlDataAdapter adapter = new SqlDataAdapter(command);
                         //DataSet ds = new DataSet();
 
-                        try
-                        {
-                            connection.Open();
-                            SqlDataReader reader = command.ExecuteReader();
-                            if (reader.Read()) {
-                                a = reader["admin"].ToString();
-                            }
+                        //try
+                        //{
+                        //    connection.Open();
+                        //    SqlDataReader reader = command.ExecuteReader();
+                        //    if (reader.Read()) {
+                        //        a = reader["admin"].ToString();
+                        //    }
                            
                             
-                        }
-                        catch (Exception er) {  }
-                        finally
-                        {
-                            connection.Close();
-                        }
+                        //}
+                        //catch (Exception er) {  }
+                        //finally
+                        //{
+                        //    connection.Close();
+                        //}
 
-                        if (a == "True")
-                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
-                        else Response.Redirect("/About.aspx");
+                       // if (a == "True")
+                        IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                       // else Response.Redirect("/About.aspx");
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");
