@@ -88,12 +88,12 @@
                     </div>
 
                      <div class="form-group">
-                        <asp:Label ID="LabelSerialN" runat="server" AssociatedControlID="SerialN" CssClass="col-md-3 control-label">Сериски број</asp:Label>
+                        <asp:Label ID="LabelSerialN" runat="server" AssociatedControlID="SerialN" CssClass="col-md-3 control-label">Број на шасија:</asp:Label>
                         <div class="col-md-9">
                             <asp:TextBox runat="server" ID="SerialN" CssClass="form-control" />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                                ControlToValidate="SerialN" ErrorMessage="Полето за сериски број на возилото е задолжително." ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ForeColor="Red" ErrorMessage="Серискиот број треба да содржи само броеви" ControlToValidate="SerialN" ValidationExpression="^[0-9]*$" Display="Dynamic"></asp:RegularExpressionValidator>
+                                ControlToValidate="SerialN" ErrorMessage="Полето за број на шасијата на возилото е задолжително." ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ForeColor="Red" ErrorMessage="Бројот на шасија треба да содржи само броеви" ControlToValidate="SerialN" ValidationExpression="^[0-9]*$" Display="Dynamic"></asp:RegularExpressionValidator>
                               </div>
                     </div>
 
@@ -189,12 +189,13 @@
                          <asp:Label ID="showMessage" runat="server" Text=""></asp:Label>
                     </div>
                 </div>
-                <div class="row"><br /></div>
-                <div class="row">
+                 <div class="row">
                     <div class="col-md-12">
-                         <asp:Label ID="price" runat="server" Text=""></asp:Label>
+                         <asp:Label ID="zaPlakjanje" runat="server" Text=""></asp:Label>
                     </div>
                 </div>
+                <div class="row"><br /></div>
+               
                 <div class="row">
                     <div class="col-md-12">
                         <asp:Button ID="pay" runat="server" Text="Продолжи кон плаќање" CssClass="btn btn-default btn-block" OnClick="pay_Click" />

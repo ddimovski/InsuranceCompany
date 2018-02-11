@@ -5,6 +5,31 @@
         .lbl {font-weight:bold}
     </style>
 
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            if ($("#MainContent_lbltipPolisa").text() == "Осигурување на имот") {
+                $("#property").show();
+                $("#vehicle").hide();
+
+                if ($("#MainContent_lblTipImot").text() == "Куќа") {
+                    $("#house").show();
+                    $("#flat").hide();
+                }
+                else {
+                    $("#flat").show();
+                    $("#house").hide();
+                }
+            }
+            else {
+                $("#vehicle").show('slow');
+                $("#property").hide('slow');
+            }
+
+        })
+        
+    </script>
+
      <h2><%: Title %></h2>
     <div class="row">
         <div class="col-md-6">
@@ -26,27 +51,100 @@
                             <asp:Label ID="lbltipPolisa" runat="server" Style="text-align:left" CssClass="col-md-6 control-label" ></asp:Label>
                         </div>
                     </div>
-
+                    <section id="property">
                     <div class="form-group">
                         <asp:Label ID="vrednost" runat="server"  CssClass="col-md-4 control-label lbl">Вредност:</asp:Label>
                         <div class="col-md-8 baratel">
-                            <asp:Label ID="lblVrednost" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left">0211996440029</asp:Label>
+                            <asp:Label ID="lblVrednost" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
                         </div>
                     </div>
                    
                      <div class="form-group">
                         <asp:Label ID="adresa" runat="server"  CssClass="col-md-4 control-label lbl">Адреса:</asp:Label>
                         <div class="col-md-8 baratel">
-                            <asp:Label ID="lblAdresa" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left">0211996440029</asp:Label>
+                            <asp:Label ID="lblAdresa" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <asp:Label ID="tipImot" runat="server"  CssClass="col-md-4 control-label lbl">Тип имот:</asp:Label>
                         <div class="col-md-8 baratel">
-                            <asp:Label ID="lblTipImot" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left">0211996440029</asp:Label>
+                            <asp:Label ID="lblTipImot" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
                         </div>
                     </div>
+                    
+
+                    <section id="house">
+                        <div class="form-group">
+                        <asp:Label ID="brSpratobi" runat="server"  CssClass="col-md-4 control-label lbl">Број на спратови:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblBrSpratovi" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                    </section>
+
+                    <section id="flat">
+                        <div class="form-group">
+                        <asp:Label ID="vlez" runat="server"  CssClass="col-md-4 control-label lbl">Влез:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblVlez" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="sprat" runat="server"  CssClass="col-md-4 control-label lbl">Спрат:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblSprat" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="stan" runat="server"  CssClass="col-md-4 control-label lbl">Стан:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblStan" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                    </section>
+
+                        </section>
+
+                    <section id="vehicle">
+                        <div class="form-group">
+                        <asp:Label ID="seriskiBr" runat="server"  CssClass="col-md-4 control-label lbl">Број на шасија:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblSeriskiBr" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="registracija" runat="server"  CssClass="col-md-4 control-label lbl">Регистарски број:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblRegistracija" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="godina" runat="server"  CssClass="col-md-4 control-label lbl">Година на производство:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblGodina" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="brVrati" runat="server"  CssClass="col-md-4 control-label lbl">Број на врати:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblBrVrati" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="proizvoditel" runat="server"  CssClass="col-md-4 control-label lbl">Производител:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblProizvoditel" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <asp:Label ID="model" runat="server"  CssClass="col-md-4 control-label lbl">Модел:</asp:Label>
+                        <div class="col-md-8 baratel">
+                            <asp:Label ID="lblModel" runat="server" Style="text-align:left"  CssClass="col-md-6 control-label pull-left"></asp:Label>
+                        </div>
+                    </div>
+
+                    </section>
 
                 </div>
                

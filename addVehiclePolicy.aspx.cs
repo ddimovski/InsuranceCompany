@@ -133,22 +133,29 @@ namespace InsuranceCompanyWebApp
             
             sqlConnection.Open();
 
-            SqlDataReader reader = getVehicleId.ExecuteReader();
-            if (reader.Read())
-            {
-                br_polisa = reader["br"].ToString();
-            }
-            cmd2.Parameters.AddWithValue("@br_polisa", br_polisa);
-            reader.Close();
+           
 
             try
             {
-                cmd.ExecuteNonQuery();
+
                 cmd1.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+
+                SqlDataReader reader = getVehicleId.ExecuteReader();
+                if (reader.Read())
+                {
+                    br_polisa = reader["br"].ToString();
+                    Session["polisa_id"] = br_polisa.ToString();
+                }
+                cmd2.Parameters.AddWithValue("@br_polisa", br_polisa);
+                reader.Close();
+
+
+            
                 cmd2.ExecuteNonQuery();
             }
             catch (Exception e)
-            {}
+            { showMessage.Text = e.ToString(); }
 
             sqlConnection.Close();
 
@@ -159,8 +166,9 @@ namespace InsuranceCompanyWebApp
 
         private void policyAdded()
         {
-
-            price.Text = 
+            int value;
+            int.TryParse(DropDownListYear.SelectedValue, out value);
+            zaPlakjanje.Text = "Вкупно за плаќање: " + value * 3;
 
            // result.Text = "Успешно додадена полиса";
             SerialN.Text = "";
@@ -172,6 +180,7 @@ namespace InsuranceCompanyWebApp
 
             typePolicy.Visible = false;
             complete.Visible = true;
+            if (showMessage.Text=="")
             showMessage.Text = "Успешно додадена полиса";
             showMessage.Style.Add("font-size", "20pt");
             showMessage.Style.Add("font-weight", "bold");
@@ -185,6 +194,7 @@ namespace InsuranceCompanyWebApp
         protected void pay_Click(object sender, EventArgs e)
         {
 
+            Response.Redirect("/Transactions.aspx");
         }
     }
 }

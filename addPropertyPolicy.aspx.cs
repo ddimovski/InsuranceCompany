@@ -19,7 +19,8 @@ namespace InsuranceCompanyWebApp
         String ime;
         String prezime;
         String embg;
-        String polisa_id;
+        String polisa_id ="";
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -107,7 +108,7 @@ namespace InsuranceCompanyWebApp
 
             zaPlakjanje.Text = "Вкупно за плаќање: " + value/100;
             
-            ViewState["value"] = value / 100;
+           
         }
 
         protected void RadioButtonListType_SelectedIndexChanged(object sender, EventArgs e)
@@ -217,10 +218,14 @@ namespace InsuranceCompanyWebApp
             insertOsiguruvanje.Connection = sqlConnection;
             insertOsiguruvanje.CommandText = "INSERT osiguruvanje_imot (br_polisa,imot_id) VALUES (@br_polisa,@imot_id)";
 
+           
+
             try
             {
                 sqlConnection.Open();
                 polisa_id = (cmd.ExecuteScalar()).ToString();
+                Session["polisa_id"] = polisa_id.ToString();
+
                 imot_id = (insertImot.ExecuteScalar()).ToString();
 
 
@@ -230,7 +235,7 @@ namespace InsuranceCompanyWebApp
                 insertOsiguruvanje.Parameters.AddWithValue("@br_polisa", polisa_id);
                 insertOsiguruvanje.Parameters.AddWithValue("@imot_id", imot_id);
                 insertOsiguruvanje.ExecuteNonQuery();
-
+                
                 
             }
             catch (Exception e) { result.Text = e.ToString(); } finally { sqlConnection.Close(); }
@@ -239,11 +244,14 @@ namespace InsuranceCompanyWebApp
             policyAdded();
         }
 
+       
+
         protected void pay_Click(object sender, EventArgs e)
         {
-            Session["polisa_id"] = polisa_id;
-            Response.Redirect("/Transactions.aspx", false);
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
+
+
+            
+            Response.Redirect("/Transactions.aspx");
 
         }
     }

@@ -12,18 +12,14 @@ namespace InsuranceCompanyWebApp
 {
     public partial class Transactions : System.Web.UI.Page
     {
-        int polisa_id;
-        String vrednost1;
+        String polisa_id;
+        int vrednost1;
         String UserID;
         SqlConnection connection = new SqlConnection();
        
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["polisa_id"] != null)
-            //{
-            //    polisa_id = (int)Session["polisa_id"];
-            //    getDataFromDb();
-            //}
+
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             if (this.User != null && this.User.Identity.IsAuthenticated)
@@ -31,17 +27,22 @@ namespace InsuranceCompanyWebApp
                 UserID = HttpContext.Current.User.Identity.GetUserId();
             }
 
-            polisa_id = 12403;
-            getDataFromDb();
-            getTransactionHistory();
+            if (Session["polisa_id"] != null)
+            {
+                polisa_id = Session["polisa_id"].ToString();
+                getDataFromDb();
+                getTransactionHistory();
+            }
+            //polisa_id = 12411;
+           
+            
         }
 
         private void getTransactionHistory()
         {
-            int v;
-            int.TryParse(vrednost1, out v);
+       
             
-            lblVkupno.Text = (v / 100).ToString();
+            lblVkupno.Text = vrednost1.ToString();
 
             int plateno = 0;
 
@@ -74,7 +75,7 @@ namespace InsuranceCompanyWebApp
                 lblPlateno.Text = plateno.ToString();
             }
 
-            lblZaPlakjanje.Text = ((v/100) - plateno).ToString();
+            lblZaPlakjanje.Text = (vrednost1 - plateno).ToString();
 
 
         }
@@ -101,6 +102,25 @@ namespace InsuranceCompanyWebApp
             getLokacija.Connection = connection;
             getLokacija.CommandType = System.Data.CommandType.Text;
             getLokacija.CommandText = "SELECT * FROM lokacii WHERE lokacija_id = @lokacija_id";
+
+            SqlCommand getKukja = new SqlCommand();
+            getKukja.Connection = connection;
+            getKukja.CommandType = System.Data.CommandType.Text;
+            getKukja.CommandText = "SELECT * FROM kukji WHERE imot_id = @imot_id";
+
+            SqlCommand getStan = new SqlCommand();
+            getStan.Connection = connection;
+            getStan.CommandType = System.Data.CommandType.Text;
+            getStan.CommandText = "SELECT * FROM stanovi WHERE imot_id = @imot_id";
+            
+            String imot_id ="";
+
+            SqlCommand getVozilo = new SqlCommand();
+            getVozilo.Connection = connection;
+            getVozilo.CommandType = System.Data.CommandType.Text;
+            getVozilo.CommandText = "SELECT * FROM vozila WHERE seriski_br = (SELECT seriski_br FROM osiguruvanje_vozilo WHERE br_polisa = @br_polisa)";
+            getVozilo.Parameters.AddWithValue("@br_polisa", polisa_id);
+
             try
             {
                 connection.Open();
@@ -125,9 +145,11 @@ namespace InsuranceCompanyWebApp
                 if (tipPolisa)
                 {
                     reader = getImot.ExecuteReader();
-                    if (reader.Read()) {
-                        vrednost1 = reader["vrednost"].ToString();
-                        lblVrednost.Text = vrednost1;
+                    if (reader.Read())
+                    {
+                        imot_id = reader["imot_id"].ToString();
+                        vrednost1=(int) reader["vrednost"]/100;
+                        lblVrednost.Text = vrednost1.ToString();
                         tipImot = (bool)reader["tip_imot"];
                         if (tipImot) lblTipImot.Text = "Куќа";
                         else lblTipImot.Text = "Стан";
@@ -135,16 +157,77 @@ namespace InsuranceCompanyWebApp
                         getLokacija.Parameters.AddWithValue("@lokacija_id", lokacija_id);
                     }
                     reader.Close();
+
+                    if (tipImot)
+                    {
+                        getKukja.Parameters.AddWithValue("@imot_id", imot_id);
+                        reader = getKukja.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            lblBrSpratovi.Text = reader["br_spratovi"].ToString();
+                        }
+                        else { brSpratobi.Visible = false; }
+                        reader.Close();
+                    }
+                    else
+                    {
+                        getStan.Parameters.AddWithValue("@imot_id", imot_id);
+                        reader = getStan.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            lblVlez.Text = reader["vlez"].ToString();
+                            lblSprat.Text = reader["sprat"].ToString();
+                            lblStan.Text = reader["br_stan"].ToString();
+                        }
+                        reader.Close();
+                    }
+
                     reader = getLokacija.ExecuteReader();
-                    if (reader.Read()) {
+                    if (reader.Read())
+                    {
                         String lokacija = "ул. " + reader["ulica"] + " бр. " + reader["broj"] + " " + reader["kod"] + " " + reader["grad"];
                         lblAdresa.Text = lokacija;
                     }
                     reader.Close();
                 }
 
+                else
+                {
+                    reader = getVozilo.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        lblSeriskiBr.Text = reader["seriski_br"].ToString();
+                        lblRegistracija.Text = reader["registracija"].ToString();
+                        if (reader["proizvoditel"] != null && reader["proizvoditel"].ToString() != "")
+                            lblProizvoditel.Text = reader["proizvoditel"].ToString();
+                        else {
+                            lblProizvoditel.Text = "Нема податоци";
+                        }
+                        if (reader["model"] != null && reader["model"].ToString()!="")
+                        {
+                            lblModel.Text = reader["model"].ToString();
+                        }
+                        else {
+                            lblModel.Text = "Нема податоци";
+                           
+                        }
+                        if (!reader["br_vrati"].Equals(DBNull.Value))
+                        {
+                            lblBrVrati.Text = reader["br_vrati"].ToString();
+                        }
+                        else {
+                            
+                            lblBrVrati.Text = "Нема податоци";
+                        }
+                        lblGodina.Text = reader["godina"].ToString();
+                        
+                        vrednost1 = (int)reader["godina"] * 3;
+                        reader.Close();
+
+                    }
+                }
             }
-            catch (Exception e) { }
+            catch (Exception e) { result.Text = e.ToString(); }
             finally
             {
                 connection.Close();
