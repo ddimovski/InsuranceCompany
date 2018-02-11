@@ -249,6 +249,11 @@
                          <asp:Label ID="showMessage" runat="server" Text=""></asp:Label>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                         <asp:Label ID="zaPlakjanje" runat="server" Text=""></asp:Label>
+                    </div>
+                </div>
                 <div class="row"><br /></div>
                 <div class="row">
                     <div class="col-md-12">

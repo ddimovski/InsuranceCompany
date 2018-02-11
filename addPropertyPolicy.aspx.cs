@@ -19,6 +19,7 @@ namespace InsuranceCompanyWebApp
         String ime;
         String prezime;
         String embg;
+        String polisa_id;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -81,6 +82,7 @@ namespace InsuranceCompanyWebApp
 
         private void policyAdded()
         {
+            String vrednost = Value.Text;
             // result.Text = "Успешно додадена полиса";
             result.Text = "Успешно додадена полиса";
             City.Text = "";
@@ -100,6 +102,12 @@ namespace InsuranceCompanyWebApp
             showMessage.Text = "Успешно додадена полиса";
             showMessage.Style.Add("font-size", "20pt");
             showMessage.Style.Add("font-weight", "bold");
+            int value;
+            int.TryParse(vrednost, out value);
+
+            zaPlakjanje.Text = "Вкупно за плаќање: " + value/100;
+            
+            ViewState["value"] = value / 100;
         }
 
         protected void RadioButtonListType_SelectedIndexChanged(object sender, EventArgs e)
@@ -186,7 +194,7 @@ namespace InsuranceCompanyWebApp
             insertImot.Parameters.AddWithValue("@tip_imot", tipImot);
             insertImot.Connection = sqlConnection;
 
-            String polisa_id = "";
+            
             String imot_id = "";
 
             SqlCommand insertKukjaStan = new SqlCommand();
@@ -215,6 +223,7 @@ namespace InsuranceCompanyWebApp
                 polisa_id = (cmd.ExecuteScalar()).ToString();
                 imot_id = (insertImot.ExecuteScalar()).ToString();
 
+
                 insertKukjaStan.Parameters.AddWithValue("@imot_id", imot_id);
                 insertKukjaStan.ExecuteNonQuery();
 
@@ -226,11 +235,15 @@ namespace InsuranceCompanyWebApp
             }
             catch (Exception e) { result.Text = e.ToString(); } finally { sqlConnection.Close(); }
 
+            
             policyAdded();
         }
 
         protected void pay_Click(object sender, EventArgs e)
         {
+            Session["polisa_id"] = polisa_id;
+            Response.Redirect("/Transactions.aspx", false);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
 
         }
     }

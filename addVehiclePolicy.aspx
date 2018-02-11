@@ -118,7 +118,7 @@
                             <div class="col-md-1"></div>
                         <div class="col-md-3">
                         <asp:DropDownList ID="DropDownListYear" runat="server" >
-                                <asp:ListItem Value="year">- Година -</asp:ListItem>
+                                <asp:ListItem Value="2018">- Година -</asp:ListItem>
                                 <asp:ListItem Value="2018">2018</asp:ListItem>
                                 <asp:ListItem Value="2017">2017</asp:ListItem>
                                 <asp:ListItem Value="2016">2016</asp:ListItem>
