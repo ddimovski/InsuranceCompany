@@ -53,12 +53,11 @@ namespace InsuranceCompanyWebApp.Account
                 // Determine the sections to render
                 if (HasPassword(manager))
                 {
-                    ChangePassword.Visible = true;
+                   
                 }
                 else
                 {
-                    CreatePassword.Visible = true;
-                    ChangePassword.Visible = false;
+                    
                 }
 
                 // Render success message
@@ -75,7 +74,7 @@ namespace InsuranceCompanyWebApp.Account
                         : message == "AddPhoneNumberSuccess" ? "Phone number has been added"
                         : message == "RemovePhoneNumberSuccess" ? "Phone number was removed"
                         : String.Empty;
-                    successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
+                 // successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
                 }
             }
         }

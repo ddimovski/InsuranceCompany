@@ -53,9 +53,12 @@ namespace InsuranceCompanyWebApp
 
                 adapterImot.Fill(dsI,"Imoti");
                 GridView1.DataSource= dsI;
+
+                ViewState["datasetImoti"] = dsI;
                 GridView1.DataBind();
 
                 adapterVozilo.Fill(dsV,"Vozila");
+                ViewState["datasetVozila"] = dsV;
                 GridView2.DataSource = dsV;
                 GridView2.DataBind();
 
@@ -263,6 +266,10 @@ namespace InsuranceCompanyWebApp
             Session["polisa_id"] = btn.CommandArgument;
             Response.Redirect("/Transactions.aspx");
         }
+
+      
+
+      
     }
 
 }

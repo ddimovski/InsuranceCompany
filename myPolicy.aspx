@@ -1,18 +1,32 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="myPolicy.aspx.cs" Inherits="InsuranceCompanyWebApp.myPolicy" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+      <div class="row"></div>
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    
+    <ul class="nav navbar-nav">
+      <li ><a href="Manage.aspx">Мој Профил</a></li>
+      <li class="active"><a href="/myPolicy.aspx">Мои Полиси</a></li>
+      <li><a href="/myProperty.aspx">Мој Имот</a></li>
+      <li><a href="/myVehicles.aspx">Мои Возила</a></li>
+      <li ><a href="/moiTransakcii.aspx">Мои Трансакции</a></li>
+    </ul>
+  </div>
+</nav>
+
     <h2>Мои полиси</h2>
 
     <hr />
 
     <h4>Осигурани возила</h4>
     <p>
-        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="Vertical" OnRowDataBound="GridView2_RowDataBound" style="margin-top: 0px">
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="Vertical" OnRowDataBound="GridView2_RowDataBound" style="margin-top: 0px" AllowSorting="True">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="br_polisa" HeaderText="Број на полиса" />
                 <asp:BoundField DataField="datum_izdavanje" HeaderText="Датум на издавање" />
-                <asp:BoundField DataField="seriski_br" HeaderText="Сериски број на возилото" />
+                <asp:BoundField DataField="seriski_br" HeaderText="Број на шасија" />
                 <asp:BoundField DataField="registracija" HeaderText="Регистрација" />
                 <asp:BoundField DataField="godina" HeaderText="Година" />
                 <asp:BoundField DataField="model" HeaderText="Модел" NullDisplayText="Нема податоци" />
@@ -28,7 +42,7 @@
             <EditRowStyle BackColor="#7C6F57" />
             <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#5CB85C" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+            <PagerStyle BackColor="#5CB85C" ForeColor="White" HorizontalAlign="Center" />
             <RowStyle BackColor="#E3EAEB" />
             <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
             <SortedAscendingCellStyle BackColor="#F8FAFA" />

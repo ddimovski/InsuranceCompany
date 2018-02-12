@@ -217,7 +217,10 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="img\imot.jpg" />
     <Content Include="img\vozilo.jpg" />
+    <Content Include="moiTransakcii.aspx" />
     <Content Include="myPolicy.aspx" />
+    <Content Include="myProperty.aspx" />
+    <Content Include="myVehicles.aspx" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -440,12 +443,33 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="moiTransakcii.aspx.cs">
+      <DependentUpon>moiTransakcii.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="moiTransakcii.aspx.designer.cs">
+      <DependentUpon>moiTransakcii.aspx</DependentUpon>
+    </Compile>
     <Compile Include="myPolicy.aspx.cs">
       <DependentUpon>myPolicy.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="myPolicy.aspx.designer.cs">
       <DependentUpon>myPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="myProperty.aspx.cs">
+      <DependentUpon>myProperty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="myProperty.aspx.designer.cs">
+      <DependentUpon>myProperty.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="myVehicles.aspx.cs">
+      <DependentUpon>myVehicles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="myVehicles.aspx.designer.cs">
+      <DependentUpon>myVehicles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
