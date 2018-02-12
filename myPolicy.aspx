@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="myPolicy.aspx.cs" Inherits="InsuranceCompanyWebApp.myPolicy" %>
+﻿<%@ Page Title="Мои Полиси" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="myPolicy.aspx.cs" Inherits="InsuranceCompanyWebApp.myPolicy" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
       <div class="row"></div>
@@ -30,17 +30,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                                <asp:Label runat="server" AssociatedControlID="ponovi" CssClass="col-md-6 control-label">Понови од:</asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="ponovi" CssClass="col-md-6 control-label">Датум од:</asp:Label>
                                     <div class="col-md-6">
-                                        <asp:TextBox placeholder="yy-mm-dd" runat="server" ID="ponovi" CssClass="form-control" />
+                                        <asp:TextBox placeholder="yyyy-mm-dd" runat="server" ID="ponovi" CssClass="form-control" />
                                     </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                                <asp:Label runat="server" AssociatedControlID="postari" CssClass="col-md-6 control-label">Постари од:</asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="postari" CssClass="col-md-6 control-label">Датум до:</asp:Label>
                                     <div class="col-md-6">
-                                        <asp:TextBox placeholder="yy-mm-dd" runat="server" ID="postari" CssClass="form-control" />
+                                        <asp:TextBox placeholder="yyyy-mm-dd" runat="server" ID="postari" CssClass="form-control" />
                                     </div>
                         </div>
                     </div>
@@ -57,17 +57,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                                <asp:Label runat="server" AssociatedControlID="ponovoV" CssClass="col-md-6 control-label">Поново од:</asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="ponovoV" CssClass="col-md-6 control-label">Година од:</asp:Label>
                                     <div class="col-md-6">
-                                        <asp:TextBox runat="server" ID="ponovoV" CssClass="form-control" />
+                                        <asp:TextBox placeholder="yyyy" runat="server" ID="ponovoV" CssClass="form-control" />
                                     </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                                <asp:Label runat="server" AssociatedControlID="postaroV" CssClass="col-md-6 control-label">Постаро од:</asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="postaroV" CssClass="col-md-6 control-label">Година до:</asp:Label>
                                     <div class="col-md-6">
-                                        <asp:TextBox runat="server" ID="postaroV" CssClass="form-control" />
+                                        <asp:TextBox placeholder="yyyy" runat="server" ID="postaroV" CssClass="form-control" />
                                     </div>
                         </div>
                     </div>
@@ -119,8 +119,74 @@
             <SortedDescendingHeaderStyle BackColor="#15524A" />
         </asp:GridView>
     </p>
+ <hr />
+    <br />
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-horizontal">
+                <div style="text-align:center">
+                    <h4>Филтер според датум на издавање на полиса</h4>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="ponoviPolisi" CssClass="col-md-6 control-label">Датум од:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox placeholder="yyyy-mm-dd" runat="server" ID="ponoviPolisi" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="postariPolisi" CssClass="col-md-6 control-label">Датум до:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox placeholder="yyyy-mm-dd" runat="server" ID="postariPolisi" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
 
-    <hr />
+        <div class="col-md-5">
+            <div class="form-horizontal">
+                <div style="text-align:center">
+                    <h4>Филтер според вредност на имотот</h4>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="poskapImot" CssClass="col-md-6 control-label">Вредност од:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox placeholder="денари" runat="server" ID="poskapImot" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="poevtinImot" CssClass="col-md-6 control-label">Вредност до:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox placeholder="денари" runat="server" ID="poevtinImot" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <h4></h4>
+            <br />
+            <div class="form-group">
+                <div class="col-md-12">
+                    <asp:Button runat="server" Text="Филтрирај" CssClass="btn btn-success btn-block" OnClick="Unnamed10_Click" />
+                </div>
+            </div>
+        </div>
+        
+    </div>
 
     <h4>Осигуран имот</h4>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" OnRowDataBound="GridView1_RowDataBound" ForeColor="#333333" GridLines="Vertical" DataKeyNames="br_polisa" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">

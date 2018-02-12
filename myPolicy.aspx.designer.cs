@@ -58,6 +58,42 @@ namespace InsuranceCompanyWebApp {
         protected global::System.Web.UI.WebControls.GridView GridView2;
         
         /// <summary>
+        /// ponoviPolisi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ponoviPolisi;
+        
+        /// <summary>
+        /// postariPolisi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox postariPolisi;
+        
+        /// <summary>
+        /// poskapImot control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox poskapImot;
+        
+        /// <summary>
+        /// poevtinImot control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox poevtinImot;
+        
+        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>

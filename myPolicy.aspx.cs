@@ -22,57 +22,60 @@ namespace InsuranceCompanyWebApp
                 UserID = HttpContext.Current.User.Identity.GetUserId();
             }
 
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString=ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            string sqlStringImot = "Select polisi.br_polisa, polisi.datum_izdavanje, imoti.tip_imot, imoti.vrednost, lokacii.grad, lokacii.ulica, lokacii.broj "
-                + "FROM polisi, osiguruvanje_imot, imoti, lokacii "
-                + "WHERE polisi.br_polisa = osiguruvanje_imot.br_polisa and osiguruvanje_imot.imot_id = imoti.imot_id "
-                + "and imoti.lokacija = lokacii.lokacija_id AND baratel = @user_id ";
-            string sqlStringVozilo = "Select polisi.br_polisa, polisi.datum_izdavanje, "
-                + "vozila.seriski_br, vozila.registracija, vozila.godina, vozila.model, vozila.proizvoditel, vozila.br_vrati "
-                + "FROM polisi, osiguruvanje_vozilo, vozila WHERE polisi.br_polisa = osiguruvanje_vozilo.br_polisa "
-                + "and osiguruvanje_vozilo.seriski_br = vozila.seriski_br AND baratel = @user_id";
-
-
-            SqlCommand commandImot = new SqlCommand(sqlStringImot, connection);
-            commandImot.Parameters.AddWithValue("@user_id", UserID);
-
-            SqlDataAdapter adapterImot = new SqlDataAdapter(commandImot);
-
-            SqlCommand commandVozilo = new SqlCommand(sqlStringVozilo, connection);
-            commandVozilo.Parameters.AddWithValue("@user_id", UserID);
-
-            SqlDataAdapter adapterVozilo = new SqlDataAdapter(commandVozilo);
-
-            DataSet dsI = new DataSet();
-            DataSet dsV = new DataSet();
-
-            try
+            if (!IsPostBack)
             {
-                connection.Open();
 
-                adapterImot.Fill(dsI,"Imoti");
-                GridView1.DataSource= dsI;
+                SqlConnection connection = new SqlConnection();
+                connection.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                string sqlStringImot = "Select polisi.br_polisa, polisi.datum_izdavanje, imoti.tip_imot, imoti.vrednost, lokacii.grad, lokacii.ulica, lokacii.broj "
+                    + "FROM polisi, osiguruvanje_imot, imoti, lokacii "
+                    + "WHERE polisi.br_polisa = osiguruvanje_imot.br_polisa and osiguruvanje_imot.imot_id = imoti.imot_id "
+                    + "and imoti.lokacija = lokacii.lokacija_id AND baratel = @user_id ";
+                string sqlStringVozilo = "Select polisi.br_polisa, polisi.datum_izdavanje, "
+                    + "vozila.seriski_br, vozila.registracija, vozila.godina, vozila.model, vozila.proizvoditel, vozila.br_vrati "
+                    + "FROM polisi, osiguruvanje_vozilo, vozila WHERE polisi.br_polisa = osiguruvanje_vozilo.br_polisa "
+                    + "and osiguruvanje_vozilo.seriski_br = vozila.seriski_br AND baratel = @user_id";
 
-                ViewState["datasetImoti"] = dsI;
-                GridView1.DataBind();
 
-                adapterVozilo.Fill(dsV,"Vozila");
-                ViewState["datasetVozila"] = dsV;
-                GridView2.DataSource = dsV;
-                GridView2.DataBind();
+                SqlCommand commandImot = new SqlCommand(sqlStringImot, connection);
+                commandImot.Parameters.AddWithValue("@user_id", UserID);
+
+                SqlDataAdapter adapterImot = new SqlDataAdapter(commandImot);
+
+                SqlCommand commandVozilo = new SqlCommand(sqlStringVozilo, connection);
+                commandVozilo.Parameters.AddWithValue("@user_id", UserID);
+
+                SqlDataAdapter adapterVozilo = new SqlDataAdapter(commandVozilo);
+
+                DataSet dsI = new DataSet();
+                DataSet dsV = new DataSet();
+
+                try
+                {
+                    connection.Open();
+
+                    adapterImot.Fill(dsI, "Imoti");
+                    GridView1.DataSource = dsI;
+
+                    ViewState["datasetImoti"] = dsI;
+                    GridView1.DataBind();
+
+                    adapterVozilo.Fill(dsV, "Vozila");
+                    ViewState["datasetVozila"] = dsV;
+                    GridView2.DataSource = dsV;
+                    GridView2.DataBind();
+
+                }
+                catch (Exception ex)
+                {
+                    Label1.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
 
             }
-            catch(Exception ex)
-            {
-                Label1.Text = ex.Message;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-        
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -267,9 +270,168 @@ namespace InsuranceCompanyWebApp
             Response.Redirect("/Transactions.aspx");
         }
 
-      
 
-      
+
+        protected void Unnamed5_Click(object sender, EventArgs e)
+        {
+
+            string ponoviOd = "1985-1-1";
+
+            String d = DateTime.Today.ToString();
+            String[] sub = d.Split(' ');
+            string postariOd = sub[0];
+
+            int ponovoVoD = 1980;
+            int postaroVoD = 2018;
+
+            if (ponovi.Text != "")
+            {
+                ponoviOd = ponovi.Text;
+            }
+
+            if (postari.Text != "")
+            {
+                postariOd = postari.Text;
+            }
+
+            if (ponovoV.Text != "")
+            {
+                int.TryParse(ponovoV.Text, out ponovoVoD);
+            }
+
+            if (postaroV.Text != "")
+            {
+                int.TryParse(postaroV.Text, out postaroVoD);
+            }
+
+
+          
+            GridView2.DataSource = null;
+            GridView2.DataBind();
+
+
+            SqlConnection connection3 = new SqlConnection();
+            connection3.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+            string sqlStringFilter = "Select polisi.br_polisa, polisi.datum_izdavanje, "
+                    + "vozila.seriski_br, vozila.registracija, vozila.godina, vozila.model, vozila.proizvoditel, vozila.br_vrati "
+                    + "FROM polisi, osiguruvanje_vozilo, vozila WHERE polisi.baratel = @user_id and polisi.br_polisa = osiguruvanje_vozilo.br_polisa "
+                    + "and osiguruvanje_vozilo.seriski_br = vozila.seriski_br "
+                    + "and polisi.datum_izdavanje >= @ponoviOd and polisi.datum_izdavanje <= @postariOd "
+                    + "and vozila.godina >= @ponovoVoD and vozila.godina <= @postaroVoD";
+
+            SqlCommand commandFilter = new SqlCommand(sqlStringFilter, connection3);
+            commandFilter.Parameters.AddWithValue("@ponoviOd", ponoviOd);
+            commandFilter.Parameters.AddWithValue("@postariOd", postariOd);
+            commandFilter.Parameters.AddWithValue("@ponovoVoD", ponovoVoD);
+            commandFilter.Parameters.AddWithValue("@postaroVoD", postaroVoD);
+            commandFilter.Parameters.AddWithValue("@user_id",UserID);
+
+            SqlDataAdapter adapterFilter = new SqlDataAdapter(commandFilter);
+            DataSet dsFilter = new DataSet();
+
+            try
+            {
+                connection3.Open();
+
+                adapterFilter.Fill(dsFilter, "VoziloFiltri");
+                GridView2.DataSource = dsFilter;
+                GridView2.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Label1.Text = ex.ToString();
+            }
+            finally
+            {
+                connection3.Close();
+            }
+
+        }
+
+        protected void Unnamed10_Click(object sender, EventArgs e)
+        {
+            string ponoviOd = "1985-1-1";
+
+            String d = DateTime.Today.ToString();
+            String[] sub = d.Split(' ');
+            string postariOd = sub[0];
+
+            int poskapImotOd = 0;
+            int poevtinImotOd = 9999999;
+
+            if (ponoviPolisi.Text != "")
+            {
+                ponoviOd = ponoviPolisi.Text;
+            }
+
+            if (postariPolisi.Text != "")
+            {
+                postariOd = postariPolisi.Text;
+            }
+
+            if (poskapImot.Text != "")
+            {
+                int.TryParse(poskapImot.Text, out poskapImotOd);
+               
+            }
+
+            if (poevtinImot.Text != "")
+            {
+                int.TryParse(poevtinImot.Text, out poevtinImotOd);
+            }
+
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+
+
+            SqlConnection connection4 = new SqlConnection();
+            connection4.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+            string sqlStringFilter = "Select polisi.br_polisa, polisi.datum_izdavanje, imoti.tip_imot, imoti.vrednost, lokacii.grad, lokacii.ulica, lokacii.broj "
+                    + "FROM polisi, osiguruvanje_imot, imoti, lokacii "
+                    + "WHERE polisi.baratel = @user_id and polisi.br_polisa = osiguruvanje_imot.br_polisa and osiguruvanje_imot.imot_id = imoti.imot_id "
+                    + "and imoti.lokacija = lokacii.lokacija_id "
+                    + "and polisi.datum_izdavanje >= @ponoviOd and polisi.datum_izdavanje <= @postariOd "
+                    + "and imoti.vrednost >= @poskapImot and imoti.vrednost <= @poevtinImot";
+
+            SqlCommand commandFilter = new SqlCommand(sqlStringFilter, connection4);
+            commandFilter.Parameters.AddWithValue("@ponoviOd", ponoviOd);
+            commandFilter.Parameters.AddWithValue("@postariOd", postariOd);
+            commandFilter.Parameters.AddWithValue("@poskapImot", poskapImotOd);
+            commandFilter.Parameters.AddWithValue("@poevtinImot", poevtinImotOd);
+            commandFilter.Parameters.AddWithValue("@user_id", UserID);
+
+            SqlDataAdapter adapterFilter = new SqlDataAdapter(commandFilter);
+            DataSet dsFilter = new DataSet();
+
+            try
+            {
+                connection4.Open();
+
+                adapterFilter.Fill(dsFilter, "ImotFiltri");
+                GridView1.DataSource = dsFilter;
+                GridView1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Label1.Text = ex.ToString();
+            }
+            finally
+            {
+                connection4.Close();
+            }
+
+        }
+
+
+
     }
 
+
+
 }
+
+
+
+
