@@ -6,7 +6,7 @@
   <div class="container-fluid">
     
     <ul class="nav navbar-nav">
-      <li ><a href="Manage.aspx">Мој Профил</a></li>
+      <li ><a href="/Account/Manage.aspx">Мој Профил</a></li>
       <li class="active"><a href="/myPolicy.aspx">Мои Полиси</a></li>
       <li><a href="/myProperty.aspx">Мој Имот</a></li>
       <li><a href="/myVehicles.aspx">Мои Возила</a></li>
@@ -18,6 +18,74 @@
     <h2>Мои полиси</h2>
 
     <hr />
+    
+    <br />
+        <div class="row">
+        <div class="col-md-5">
+            <div class="form-horizontal">
+                <div style="text-align:center">
+                    <h4>Филтер според датум на издавање на полиса</h4>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="ponovi" CssClass="col-md-6 control-label">Понови од:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox placeholder="yy-mm-dd" runat="server" ID="ponovi" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="postari" CssClass="col-md-6 control-label">Постари од:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox placeholder="yy-mm-dd" runat="server" ID="postari" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="form-horizontal">
+                <div style="text-align:center">
+                    <h4>Филтер според старост на возилото</h4>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="ponovoV" CssClass="col-md-6 control-label">Поново од:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox runat="server" ID="ponovoV" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="postaroV" CssClass="col-md-6 control-label">Постаро од:</asp:Label>
+                                    <div class="col-md-6">
+                                        <asp:TextBox runat="server" ID="postaroV" CssClass="form-control" />
+                                    </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <h4></h4>
+            <br />
+            <div class="form-group">
+                <div class="col-md-12">
+                    <asp:Button runat="server" Text="Филтрирај" CssClass="btn btn-success btn-block" OnClick="Unnamed5_Click" />
+                </div>
+            </div>
+        </div>
+        
+    </div>
 
     <h4>Осигурани возила</h4>
     <p>

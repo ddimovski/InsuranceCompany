@@ -14,7 +14,7 @@
 
 
     <div class="jumbotron">
-        <h1>ASP.NET</h1>
+        <h1>MKIns</h1>
         <p class="lead">Купете осигурување онлајн - Најбрзо и најсигурно до вашето осигурување</p>
         <p><a href="About.aspx" class="btn btn-success btn-large">Повеќе за нас &raquo;</a></p>
     </div>

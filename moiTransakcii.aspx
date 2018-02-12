@@ -6,7 +6,7 @@
   <div class="container-fluid">
     
     <ul class="nav navbar-nav">
-      <li ><a href="Manage.aspx">Мој Профил</a></li>
+      <li ><a href="/Account/Manage.aspx">Мој Профил</a></li>
       <li><a href="/myPolicy.aspx">Мои Полиси</a></li>
       <li><a href="/myProperty.aspx">Мој Имот</a></li>
       <li><a href="/myVehicles.aspx">Мои Возила</a></li>

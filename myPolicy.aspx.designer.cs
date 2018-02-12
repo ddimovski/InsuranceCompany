@@ -13,6 +13,42 @@ namespace InsuranceCompanyWebApp {
     public partial class myPolicy {
         
         /// <summary>
+        /// ponovi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ponovi;
+        
+        /// <summary>
+        /// postari control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox postari;
+        
+        /// <summary>
+        /// ponovoV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ponovoV;
+        
+        /// <summary>
+        /// postaroV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox postaroV;
+        
+        /// <summary>
         /// GridView2 control.
         /// </summary>
         /// <remarks>
