@@ -5,9 +5,9 @@
 
     <hr />
 
-    <h4>Осигурано возило</h4>
+    <h4>Осигурани возила</h4>
     <p>
-        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="Vertical" OnRowDataBound="GridView2_RowDataBound">
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="Vertical" OnRowDataBound="GridView2_RowDataBound" style="margin-top: 0px">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="br_polisa" HeaderText="Број на полиса" />
@@ -18,6 +18,12 @@
                 <asp:BoundField DataField="model" HeaderText="Модел" NullDisplayText="Нема податоци" />
                 <asp:BoundField DataField="proizvoditel" HeaderText="Производител" NullDisplayText="Нема податоци" />
                 <asp:BoundField DataField="br_vrati" HeaderText="Број на врати" NullDisplayText="Нема податоци" />
+                <asp:TemplateField HeaderText="Платено?">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btnPlateno1" runat="server" Text="A" CommandArgument='<%#Eval("br_polisa") %>' OnCommand="btnPlateno1_Click" /> 
+                    </ItemTemplate>
+                    <ItemStyle HorizontalAlign="Center" />
+                </asp:TemplateField>
             </Columns>
             <EditRowStyle BackColor="#7C6F57" />
             <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
@@ -40,10 +46,17 @@
         <Columns>
             <asp:BoundField DataField="tip_imot" HeaderText="Тип на имот" />
             <asp:ButtonField CommandName="select" DataTextField="br_polisa" HeaderText="Број на Полиса" Text="Button" />
+            <asp:BoundField DataField="vrednost" HeaderText="Вредност" />
             <asp:BoundField DataField="datum_izdavanje" HeaderText="Датум на издавање" />
             <asp:BoundField DataField="grad" HeaderText="Град" />
             <asp:BoundField DataField="ulica" HeaderText="Улица" />
             <asp:BoundField DataField="broj" HeaderText="Број" />
+            <asp:TemplateField HeaderText="Платено?">
+                <ItemTemplate>
+                    <asp:LinkButton ID="btnPlateno" runat="server" Text="A" CommandArgument='<%#Eval("br_polisa") %>' OnCommand="btnPlateno_Click" /> 
+                </ItemTemplate>
+                <ItemStyle HorizontalAlign="Center" />
+            </asp:TemplateField>
             <asp:ButtonField CommandName="select" HeaderText="Детали" Text="▼">
             <ItemStyle HorizontalAlign="Center" />
             </asp:ButtonField>

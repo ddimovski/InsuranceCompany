@@ -149,7 +149,7 @@ namespace InsuranceCompanyWebApp
                     {
                         imot_id = reader["imot_id"].ToString();
                         vrednost1=(int) reader["vrednost"]/100;
-                        lblVrednost.Text = vrednost1.ToString();
+                        lblVrednost.Text = (vrednost1*100).ToString();
                         tipImot = (bool)reader["tip_imot"];
                         if (tipImot) lblTipImot.Text = "Куќа";
                         else lblTipImot.Text = "Стан";

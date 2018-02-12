@@ -24,7 +24,7 @@ namespace InsuranceCompanyWebApp
 
             SqlConnection connection = new SqlConnection();
             connection.ConnectionString=ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            string sqlStringImot = "Select polisi.br_polisa, polisi.datum_izdavanje, imoti.tip_imot, lokacii.grad, lokacii.ulica, lokacii.broj "
+            string sqlStringImot = "Select polisi.br_polisa, polisi.datum_izdavanje, imoti.tip_imot, imoti.vrednost, lokacii.grad, lokacii.ulica, lokacii.broj "
                 + "FROM polisi, osiguruvanje_imot, imoti, lokacii "
                 + "WHERE polisi.br_polisa = osiguruvanje_imot.br_polisa and osiguruvanje_imot.imot_id = imoti.imot_id "
                 + "and imoti.lokacija = lokacii.lokacija_id AND baratel = @user_id ";
@@ -143,15 +143,59 @@ namespace InsuranceCompanyWebApp
             String[]  sub = d.Split(' ');
             if (d!="Датум на издавање")
             e.Row.Cells[1].Text = sub[0];
-        }
+
+            if (e.Row.RowIndex > -1)
+            {
+
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["defaultconnection"].ConnectionString;
+
+                SqlCommand checkPlateno = new SqlCommand();
+                checkPlateno.CommandType = System.Data.CommandType.Text;
+                checkPlateno.Connection = con;
+                checkPlateno.CommandText = "SELECT SUM(iznos) plateno FROM transakcii WHERE br_polisa = @br_polisa";
+                checkPlateno.Parameters.AddWithValue("@br_polisa", e.Row.Cells[0].Text.ToString());
+
+                int plateno = 0;
+
+                try
+                {
+                    con.Open();
+                    SqlDataReader reader = checkPlateno.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int.TryParse(reader["plateno"].ToString(), out plateno);
+                    }
+                }
+                catch (Exception er) { Label1.Text = er.ToString(); }
+                finally { con.Close(); }
+
+                int god=2018 ;
+                int.TryParse(e.Row.Cells[4].Text, out god);
+                if (god*3 - plateno < 1)
+                {
+
+                    ((LinkButton)e.Row.FindControl("btnPlateno1")).Text = "✔";
+
+                    ((LinkButton)e.Row.FindControl("btnPlateno1")).Style.Add("color", "green");
+
+                }
+                else
+                {
+                    ((LinkButton)e.Row.FindControl("btnPlateno1")).Text = "✘";
+                    ((LinkButton)e.Row.FindControl("btnPlateno1")).Style.Add("color", "red");
+                }
+            }
+
+       }
 
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            String d = e.Row.Cells[2].Text.ToString();
+            String d = e.Row.Cells[3].Text.ToString();
             String[] sub = d.Split(' ');
             if (d!="Датум на издавање")
-            e.Row.Cells[2].Text = sub[0];
+            e.Row.Cells[3].Text = sub[0];
 
             String tip = e.Row.Cells[0].Text.ToString();
             if (tip == "True") {
@@ -159,8 +203,66 @@ namespace InsuranceCompanyWebApp
 
             }
             else if (tip == "False") { e.Row.Cells[0].Text = "Стан"; }
+
+            if (e.Row.RowIndex > -1)
+            {
+
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = ConfigurationManager.ConnectionStrings["defaultconnection"].ConnectionString;
+
+                SqlCommand checkPlateno = new SqlCommand();
+                checkPlateno.CommandType = System.Data.CommandType.Text;
+                checkPlateno.Connection = con;
+                checkPlateno.CommandText = "SELECT SUM(iznos) plateno FROM transakcii WHERE br_polisa = @br_polisa";
+                checkPlateno.Parameters.AddWithValue("@br_polisa", GridView1.DataKeys[e.Row.RowIndex].Value.ToString());
+
+                int plateno = 0;
+
+                try
+                {
+                    con.Open();
+                    SqlDataReader reader = checkPlateno.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int.TryParse(reader["plateno"].ToString(),out plateno);
+                    }
+                }
+                catch (Exception er) { Label1.Text = er.ToString(); }
+                finally { con.Close(); }
+
+                int vrednost;
+                int.TryParse(e.Row.Cells[2].Text, out vrednost);
+                if (vrednost / 100 - plateno < 1)
+                {
+
+                  ((LinkButton)e.Row.FindControl("btnPlateno")).Text = "✔";
+
+                    ((LinkButton)e.Row.FindControl("btnPlateno")).Style.Add("color", "green");
+                   
+                }
+                else
+                {
+                    ((LinkButton)e.Row.FindControl("btnPlateno")).Text = "✘";
+                    ((LinkButton)e.Row.FindControl("btnPlateno")).Style.Add("color", "red");
+                }
+            }
         }
 
+        protected void btnPlateno_Click(object sender, EventArgs e)
+        {
+
+            LinkButton btn = sender as LinkButton;
+            Session["polisa_id"] = btn.CommandArgument;
+            Response.Redirect("/Transactions.aspx");
         }
+
+        protected void btnPlateno1_Click(object sender, EventArgs e)
+        {
+
+            LinkButton btn = sender as LinkButton;
+            Session["polisa_id"] = btn.CommandArgument;
+            Response.Redirect("/Transactions.aspx");
+        }
+    }
 
 }
