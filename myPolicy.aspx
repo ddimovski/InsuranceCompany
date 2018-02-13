@@ -89,12 +89,12 @@
 
     <h4>Осигурани возила</h4>
     <p>
-        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="Vertical" OnRowDataBound="GridView2_RowDataBound" style="margin-top: 0px" AllowSorting="True">
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="Vertical" OnRowDataBound="GridView2_RowDataBound" style="margin-top: 0px" AllowSorting="True" OnRowCancelingEdit="GridView2_RowCancelingEdit" OnRowEditing="GridView2_RowEditing" OnRowUpdating="GridView2_RowUpdating">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="br_polisa" HeaderText="Број на полиса" />
-                <asp:BoundField DataField="datum_izdavanje" HeaderText="Датум на издавање" />
-                <asp:BoundField DataField="seriski_br" HeaderText="Број на шасија" />
+                <asp:BoundField DataField="br_polisa" HeaderText="Број на полиса" ReadOnly="True" />
+                <asp:BoundField DataField="datum_izdavanje" HeaderText="Датум на издавање" ReadOnly="True" />
+                <asp:BoundField DataField="seriski_br" HeaderText="Број на шасија" ReadOnly="True"  />
                 <asp:BoundField DataField="registracija" HeaderText="Регистрација" />
                 <asp:BoundField DataField="godina" HeaderText="Година" />
                 <asp:BoundField DataField="model" HeaderText="Модел" NullDisplayText="Нема податоци" />
@@ -106,6 +106,7 @@
                     </ItemTemplate>
                     <ItemStyle HorizontalAlign="Center" />
                 </asp:TemplateField>
+                <asp:CommandField CancelText="Откажи" DeleteText="Избриши" EditText="Измени" InsertText="Додади" NewText="Нова полиса" SelectText="Селектирај" ShowEditButton="True" UpdateText="Ажурирај" />
             </Columns>
             <EditRowStyle BackColor="#7C6F57" />
             <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
@@ -189,13 +190,13 @@
     </div>
 
     <h4>Осигуран имот</h4>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" OnRowDataBound="GridView1_RowDataBound" ForeColor="#333333" GridLines="Vertical" DataKeyNames="br_polisa" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" OnRowDataBound="GridView1_RowDataBound" ForeColor="#333333" GridLines="Vertical" DataKeyNames="br_polisa" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
-            <asp:BoundField DataField="tip_imot" HeaderText="Тип на имот" />
+            <asp:BoundField DataField="tip_imot" HeaderText="Тип на имот" ReadOnly="True" />
             <asp:ButtonField CommandName="select" DataTextField="br_polisa" HeaderText="Број на Полиса" Text="Button" />
             <asp:BoundField DataField="vrednost" HeaderText="Вредност" />
-            <asp:BoundField DataField="datum_izdavanje" HeaderText="Датум на издавање" />
+            <asp:BoundField DataField="datum_izdavanje" HeaderText="Датум на издавање" ReadOnly="True" />
             <asp:BoundField DataField="grad" HeaderText="Град" />
             <asp:BoundField DataField="ulica" HeaderText="Улица" />
             <asp:BoundField DataField="broj" HeaderText="Број" />
@@ -208,6 +209,7 @@
             <asp:ButtonField CommandName="select" HeaderText="Детали" Text="▼">
             <ItemStyle HorizontalAlign="Center" />
             </asp:ButtonField>
+            <asp:CommandField CancelText="Откажи" DeleteText="Избриши" EditText="Измени" InsertText="Внеси" NewText="Нова полиса" ShowEditButton="True" UpdateText="Ажурирај" />
         </Columns>
         <EditRowStyle BackColor="#7C6F57" />
         <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />

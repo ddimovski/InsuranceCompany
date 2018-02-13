@@ -59,9 +59,11 @@ namespace InsuranceCompanyWebApp
 
                     ViewState["datasetImoti"] = dsI;
                     GridView1.DataBind();
+                    ViewState["polisaImot"] = dsI;
 
                     adapterVozilo.Fill(dsV, "Vozila");
                     ViewState["datasetVozila"] = dsV;
+                    ViewState["polisaVozilo"] = dsV;
                     GridView2.DataSource = dsV;
                     GridView2.DataBind();
 
@@ -275,6 +277,12 @@ namespace InsuranceCompanyWebApp
         protected void Unnamed5_Click(object sender, EventArgs e)
         {
 
+            ispolniVozilaSoFilter();
+
+        }
+
+        private void ispolniVozilaSoFilter()
+        {
             string ponoviOd = "1985-1-1";
 
             String d = DateTime.Today.ToString();
@@ -305,7 +313,7 @@ namespace InsuranceCompanyWebApp
             }
 
 
-          
+
             GridView2.DataSource = null;
             GridView2.DataBind();
 
@@ -325,7 +333,7 @@ namespace InsuranceCompanyWebApp
             commandFilter.Parameters.AddWithValue("@postariOd", postariOd);
             commandFilter.Parameters.AddWithValue("@ponovoVoD", ponovoVoD);
             commandFilter.Parameters.AddWithValue("@postaroVoD", postaroVoD);
-            commandFilter.Parameters.AddWithValue("@user_id",UserID);
+            commandFilter.Parameters.AddWithValue("@user_id", UserID);
 
             SqlDataAdapter adapterFilter = new SqlDataAdapter(commandFilter);
             DataSet dsFilter = new DataSet();
@@ -335,6 +343,7 @@ namespace InsuranceCompanyWebApp
                 connection3.Open();
 
                 adapterFilter.Fill(dsFilter, "VoziloFiltri");
+                ViewState["polisaVozilo"] = dsFilter;
                 GridView2.DataSource = dsFilter;
                 GridView2.DataBind();
             }
@@ -346,10 +355,15 @@ namespace InsuranceCompanyWebApp
             {
                 connection3.Close();
             }
-
         }
 
         protected void Unnamed10_Click(object sender, EventArgs e)
+        {
+            ispolniImotiSoFilter();
+
+        }
+
+        private void ispolniImotiSoFilter()
         {
             string ponoviOd = "1985-1-1";
 
@@ -373,7 +387,7 @@ namespace InsuranceCompanyWebApp
             if (poskapImot.Text != "")
             {
                 int.TryParse(poskapImot.Text, out poskapImotOd);
-               
+
             }
 
             if (poevtinImot.Text != "")
@@ -395,6 +409,8 @@ namespace InsuranceCompanyWebApp
                     + "and polisi.datum_izdavanje >= @ponoviOd and polisi.datum_izdavanje <= @postariOd "
                     + "and imoti.vrednost >= @poskapImot and imoti.vrednost <= @poevtinImot";
 
+
+
             SqlCommand commandFilter = new SqlCommand(sqlStringFilter, connection4);
             commandFilter.Parameters.AddWithValue("@ponoviOd", ponoviOd);
             commandFilter.Parameters.AddWithValue("@postariOd", postariOd);
@@ -410,6 +426,7 @@ namespace InsuranceCompanyWebApp
                 connection4.Open();
 
                 adapterFilter.Fill(dsFilter, "ImotFiltri");
+                ViewState["polisaImot"] = dsFilter;
                 GridView1.DataSource = dsFilter;
                 GridView1.DataBind();
             }
@@ -421,11 +438,126 @@ namespace InsuranceCompanyWebApp
             {
                 connection4.Close();
             }
+        }
+
+        protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            try
+            {
+                DataSet ds = (DataSet)ViewState["polisaVozilo"];
+                GridView2.EditIndex = e.NewEditIndex;
+
+                GridView2.DataSource = ds;
+                GridView2.DataBind();
+            }
+            catch (Exception err) { Label1.Text = err.ToString(); }
 
         }
 
+        protected void GridView2_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            DataSet ds = (DataSet)ViewState["polisaVozilo"];
+
+            GridView2.EditIndex = -1;
+            GridView2.DataSource = ds;
+            GridView2.DataBind();
+
+            GridView2.EditIndex = -1;
+        }
+
+        protected void GridView2_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = "UPDATE vozila SET registracija = @registracija, godina = @godina, model = @model, proizvoditel = @proizvoditel, br_vrati = @br_vrati WHERE seriski_br = @seriski_br";
+            command.Parameters.AddWithValue("@registracija", ((TextBox)GridView2.Rows[e.RowIndex].Cells[3].Controls[0]).Text);
+            String godina = ((TextBox)GridView2.Rows[e.RowIndex].Cells[4].Controls[0]).Text;
+            if (godina == "") godina = "2018";
+            command.Parameters.AddWithValue("@godina", godina);
+            command.Parameters.AddWithValue("@model", ((TextBox)GridView2.Rows[e.RowIndex].Cells[5].Controls[0]).Text);
+            command.Parameters.AddWithValue("@proizvoditel", ((TextBox)GridView2.Rows[e.RowIndex].Cells[6].Controls[0]).Text);
+            command.Parameters.AddWithValue("@br_vrati", ((TextBox)GridView2.Rows[e.RowIndex].Cells[7].Controls[0]).Text);
+            
+            command.Parameters.AddWithValue("@seriski_br", (GridView2.Rows[e.RowIndex].Cells[2].Text));
+            Label1.Text = (GridView2.Rows[e.RowIndex].Cells[2].Text);
+            int eff = 0;
+            try
+            {
+                connection.Open();
+                eff=command.ExecuteNonQuery();
+
+            } catch (Exception er) { Label1.Text = er.ToString(); } 
+            finally { connection.Close();
+                GridView2.EditIndex = -1;
+            }
+            if (eff != 0) ispolniVozilaSoFilter();
+        }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            try
+            {
+                DataSet ds = (DataSet)ViewState["polisaImot"];
+                GridView1.EditIndex = e.NewEditIndex;
+
+                GridView1.DataSource = ds;
+                GridView1.DataBind();
+            }
+            catch (Exception err) { Label1.Text = err.ToString(); }
+
+        }
+
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            DataSet ds = (DataSet)ViewState["polisaImot"];
+
+            GridView1.EditIndex = -1;
+            GridView1.DataSource = ds;
+            GridView1.DataBind();
+
+            GridView1.EditIndex = -1;
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            SqlConnection connection = new SqlConnection();
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            command.CommandText = "UPDATE imoti SET vrednost = @vrednost WHERE imot_id = (SELECT imot_id from osiguruvanje_imot WHERE br_polisa = @polisa_id)";
+            command.Parameters.AddWithValue("@polisa_id", GridView1.DataKeys[e.RowIndex].Value.ToString());
+            command.Parameters.AddWithValue("@vrednost", ((TextBox)GridView1.Rows[e.RowIndex].Cells[2].Controls[0]).Text);
+
+            SqlCommand command2 = new SqlCommand();
+            command2.Connection = connection;
+            command2.CommandText = "UPDATE lokacii SET grad = @grad, ulica=@ulica, broj=@broj WHERE lokacija_id = (SELECT lokacija from imoti WHERE imot_id = (SELECT imot_id from osiguruvanje_imot WHERE br_polisa = @polisa_id))";
+            command2.Parameters.AddWithValue("@polisa_id", GridView1.DataKeys[e.RowIndex].Value.ToString());
+            command2.Parameters.AddWithValue("@grad", ((TextBox)GridView1.Rows[e.RowIndex].Cells[4].Controls[0]).Text);
+            command2.Parameters.AddWithValue("@ulica", ((TextBox)GridView1.Rows[e.RowIndex].Cells[5].Controls[0]).Text);
+            command2.Parameters.AddWithValue("@broj", ((TextBox)GridView1.Rows[e.RowIndex].Cells[6].Controls[0]).Text);
 
 
+            int eff = 0;
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                command2.ExecuteNonQuery();
+                eff = 1;
+
+            }
+            catch (Exception er) { Label1.Text = er.ToString(); }
+            finally
+            {
+                connection.Close();
+                GridView1.EditIndex = -1;
+            }
+            if (eff != 0) ispolniImotiSoFilter();
+        }
     }
 
 
